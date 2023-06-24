@@ -77,9 +77,9 @@ public class WhatsappRepository {
                 groupMessageMap.put(group, messages);
                 return messages.size();
             }
-            throw new Exception("Sender is not a member of the group");
+            throw new Exception("You are not allowed to send message");
         }
-        throw new Exception("Group does not Exist");
+        throw new Exception("Group does not exist");
     }
 
     public String changeAdmin(User approver, User user, Group group) throws Exception {
@@ -96,11 +96,11 @@ public class WhatsappRepository {
                     adminMap.put(group, user);
                     return "SUCCESS";
                 }
-                throw new Exception("User is not a part of the group");
+                throw new Exception("User is not a participant");
             }
-            throw new Exception("Approver is not the current admin of the group");
+            throw new Exception("Approver does not have rights");
         }
-        throw new Exception("Group does not Exist");
+        throw new Exception("Group does not exist");
     }
 
 //    If the user is not found in any group, the application will throw an exception.
@@ -118,7 +118,7 @@ public class WhatsappRepository {
             for (User participant : participants) {
                 if (participant.equals(user)) {
                     if (adminMap.get(group).equals(user)) {
-                        throw new Exception("Admin cannot be removed");
+                        throw new Exception("Cannot remove admin");
                     }
                     userGroup = group;
                     userFound = true;
@@ -132,7 +132,7 @@ public class WhatsappRepository {
         if(userFound) {
 
         }
-        throw new Exception("User not found in any group");
+        throw new Exception("User not found");
     }
 
     public String findMessage(Date start, Date end, int k) throws Exception {
